@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心启心理咨询 · 李思雨咨询师</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy:        #0d2137;
+            --dark-blue:   #1a3a5c;
+            --mid-blue:    #2d6a9f;
+            --light-blue:  #4db6e4;
+            --pale-blue:   #e8f4fd;
+            --gold:        #c9a84c;
+            --bg:          #f5f8fc;
+            --text:        #1a2636;
+            --gray:        #5a6a7a;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: 'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif; color: var(--text); background: var(--bg); line-height: 1.7; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: var(--mid-blue); border-radius: 3px; }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(13,33,55,.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(77,182,228,.18);
+            height: 68px; padding: 0 6%;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: background .3s;
+        }
+        .nav-brand { display: flex; align-items: center; gap: 11px; }
+        .nav-icon {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--mid-blue), var(--light-blue));
+            display: flex; align-items: center; justify-content: center; font-size: 17px;
+        }
+        .nav-name { color: #fff; font-size: 17px; font-weight: 600; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 36px; list-style: none; }
+        .nav-links a {
+            color: rgba(255,255,255,.8); text-decoration: none; font-size: 14px;
+            letter-spacing: 1px; transition: color .25s; position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px; background: var(--gold); transition: width .3s;
+        }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--mid-blue), var(--light-blue)) !important;
+            color: #fff !important; padding: 7px 20px; border-radius: 20px;
+        }
+        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(77,182,228,.4); }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(140deg, #0b1e30 0%, #1a3a5c 45%, #1e4d7a 75%, #0d3a5c 100%);
+            display: flex; align-items: center; padding: 120px 8% 160px;
+            position: relative; overflow: hidden;
+        }
+        .hero-circle {
+            position: absolute; border-radius: 50%;
+            border: 1px solid rgba(77,182,228,.12);
+        }
+        .hc1 { width: 480px; height: 480px; top: 8%;  right: 4%; }
+        .hc2 { width: 300px; height: 300px; top: 18%; right: 11%; }
+        .hc3 { width: 700px; height: 700px; bottom: -22%; right: -12%; border-color: rgba(77,182,228,.05); }
+        .hero-glow {
+            position: absolute; top: -40%; right: -15%; width: 70%; height: 150%;
+            background: radial-gradient(ellipse, rgba(77,182,228,.07) 0%, transparent 65%);
+        }
+
+        .hero-content { position: relative; z-index: 2; max-width: 620px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(77,182,228,.13); border: 1px solid rgba(77,182,228,.3);
+            color: var(--light-blue); padding: 5px 16px; border-radius: 20px;
+            font-size: 12px; letter-spacing: 1.5px; margin-bottom: 28px;
+        }
+        .hero-badge::before { content: '●'; font-size: 7px; animation: blink 2s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+        .hero-en { font-size: 12px; color: rgba(255,255,255,.45); letter-spacing: 4px; margin-bottom: 12px; }
+        .hero-title {
+            font-size: clamp(38px,5.5vw,64px); font-weight: 300; color: #fff;
+            line-height: 1.25; letter-spacing: 4px; margin-bottom: 10px;
+        }
+        .hero-title span {
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--light-blue), #92dcf7);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero-rule { width: 44px; height: 2px; background: linear-gradient(to right, var(--gold), transparent); margin: 24px 0; }
+        .hero-desc { font-size: 15px; color: rgba(255,255,255,.65); line-height: 2; margin-bottom: 44px; max-width: 460px; }
+        .hero-btns { display: flex; gap: 18px; flex-wrap: wrap; }
+        .btn-p {
+            background: linear-gradient(135deg, var(--mid-blue), var(--light-blue));
+            color: #fff; padding: 13px 34px; border-radius: 28px; text-decoration: none;
+            font-size: 14px; letter-spacing: 2px; transition: all .3s;
+            box-shadow: 0 8px 24px rgba(77,182,228,.35);
+        }
+        .btn-p:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(77,182,228,.5); }
+        .btn-o {
+            border: 1px solid rgba(255,255,255,.28); color: #fff;
+            padding: 13px 34px; border-radius: 28px; text-decoration: none;
+            font-size: 14px; letter-spacing: 2px; transition: all .3s; backdrop-filter: blur(8px);
+        }
+        .btn-o:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.5); transform: translateY(-2px); }
+
+        .hero-stats {
+            position: absolute; bottom: 52px; left: 8%; right: 8%;
+            display: flex; gap: 48px; z-index: 2;
+        }
+        .stat-n { font-size: 30px; font-weight: 700; color: #fff; letter-spacing: 1px; }
+        .stat-n span { color: var(--gold); }
+        .stat-l { font-size: 11px; color: rgba(255,255,255,.45); letter-spacing: 1px; margin-top: 3px; }
+        .stat-sep { width: 1px; height: 44px; background: rgba(255,255,255,.1); margin: auto 0; }
+
+        /* ─── SHARED ─── */
+        .section { padding: 100px 8%; }
+        .sec-hd { text-align: center; margin-bottom: 66px; }
+        .sec-tag {
+            display: inline-block; font-size: 11px; letter-spacing: 3px;
+            color: var(--mid-blue); margin-bottom: 12px;
+        }
+        .sec-tag::before,.sec-tag::after { content: '— '; margin: 0 6px; opacity:.5; }
+        .sec-title { font-size: clamp(26px,3.8vw,40px); font-weight: 300; color: var(--dark-blue); letter-spacing: 3px; }
+        .sec-title strong { font-weight: 700; }
+        .sec-rule { width: 36px; height: 2px; background: linear-gradient(to right,var(--gold),transparent); margin: 14px auto; }
+        .sec-sub { font-size: 14px; color: var(--gray); max-width: 460px; margin: 0 auto; }
+
+        .fade-in { opacity: 0; transform: translateY(26px); transition: opacity .6s, transform .6s; }
+        .fade-in.visible { opacity: 1; transform: none; }
+
+        /* ─── ABOUT ─── */
+        .about-section { background: #fff; }
+        .about-wrap {
+            display: grid; grid-template-columns: 1fr 1.55fr; gap: 80px;
+            align-items: center; max-width: 1160px; margin: 0 auto;
+        }
+        .about-img-wrap { position: relative; }
+        .about-deco {
+            position: absolute; top: -14px; left: -14px;
+            width: 72px; height: 72px; border-radius: 50%;
+            background: linear-gradient(135deg,var(--gold),#e8c76a); opacity:.75; z-index: 0;
+        }
+        .about-img {
+            width: 100%; aspect-ratio: 3/4;
+            background: linear-gradient(160deg, #1a3a5c, #2d6a9f, #4db6e4);
+            border-radius: 20px; overflow: hidden; position: relative; z-index: 1;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .about-img::before {
+            content: ''; position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='50' height='50' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='.03'%3E%3Crect x='0' y='0' width='25' height='25'/%3E%3Crect x='25' y='25' width='25' height='25'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        .about-avatar { font-size: 70px; position: relative; z-index: 2; }
+        .about-badge {
+            position: absolute; bottom: -18px; right: -18px; z-index: 2;
+            background: #fff; border-radius: 14px; padding: 18px 22px;
+            box-shadow: 0 18px 48px rgba(26,58,92,.15);
+        }
+        .badge-n { font-size: 34px; font-weight: 700; color: var(--dark-blue); line-height: 1; }
+        .badge-l { font-size: 11px; color: var(--gray); letter-spacing: 1px; margin-top: 4px; }
+
+        .about-info h2 { font-size: 34px; font-weight: 300; color: var(--dark-blue); letter-spacing: 3px; }
+        .about-info h2 strong { font-weight: 700; }
+        .about-pos { color: var(--mid-blue); font-size: 13px; letter-spacing: 2px; margin: 6px 0 20px; }
+        .about-rule { width: 36px; height: 2px; background: var(--gold); margin-bottom: 22px; }
+        .about-bio { color: var(--gray); font-size: 14px; line-height: 1.95; margin-bottom: 30px; }
+        .cred-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+        .cred {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 13px 14px; background: var(--bg); border-radius: 10px;
+            border-left: 3px solid var(--light-blue);
+        }
+        .cred-ico { font-size: 16px; margin-top: 2px; }
+        .cred-txt { font-size: 12px; color: var(--text); line-height: 1.5; }
+        .cred-txt strong { color: var(--dark-blue); display: block; margin-bottom: 2px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 9px; }
+        .tag {
+            background: linear-gradient(135deg,rgba(45,106,159,.09),rgba(77,182,228,.1));
+            border: 1px solid rgba(77,182,228,.28); color: var(--mid-blue);
+            padding: 5px 14px; border-radius: 18px; font-size: 12px; letter-spacing: 1px;
+        }
+
+        /* ─── SERVICES ─── */
+        .services-section { background: var(--bg); }
+        .svc-grid {
+            display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
+            max-width: 1160px; margin: 0 auto;
+        }
+        .svc-card {
+            background: #fff; border-radius: 18px; padding: 36px 28px;
+            border: 1px solid rgba(77,182,228,.1); transition: all .4s; position: relative; overflow: hidden;
+        }
+        .svc-card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(to right,var(--mid-blue),var(--light-blue));
+            transform: scaleX(0); transition: transform .3s;
+        }
+        .svc-card:hover { transform: translateY(-7px); box-shadow: 0 20px 48px rgba(26,58,92,.11); }
+        .svc-card:hover::after { transform: scaleX(1); }
+        .svc-ico {
+            width: 56px; height: 56px; border-radius: 14px;
+            background: linear-gradient(135deg,rgba(45,106,159,.1),rgba(77,182,228,.15));
+            display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 22px;
+        }
+        .svc-title { font-size: 17px; font-weight: 600; color: var(--dark-blue); letter-spacing: 1px; margin-bottom: 10px; }
+        .svc-desc { font-size: 13px; color: var(--gray); line-height: 1.85; }
+
+        /* ─── APPOINTMENT ─── */
+        .appt-section {
+            background: linear-gradient(140deg, #0b1e30, #1a3a5c, #1e4d7a);
+            position: relative; overflow: hidden;
+        }
+        .appt-section::before {
+            content: ''; position: absolute; top: -50%; right: -20%; width: 80%; height: 200%;
+            background: radial-gradient(ellipse,rgba(77,182,228,.06) 0%,transparent 70%);
+        }
+        .appt-section .sec-tag { color: var(--light-blue); }
+        .appt-section .sec-title { color: #fff; }
+        .appt-section .sec-sub { color: rgba(255,255,255,.5); }
+
+        .appt-wrap {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 56px;
+            max-width: 1160px; margin: 0 auto; position: relative; z-index: 2;
+        }
+
+        /* calendar */
+        .cal-box {
+            background: rgba(255,255,255,.05); backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,.1); border-radius: 22px; padding: 32px;
+        }
+        .cal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+        .cal-month { font-size: 17px; font-weight: 600; color: #fff; letter-spacing: 2px; }
+        .cal-navs { display: flex; gap: 8px; }
+        .cal-btn {
+            width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(255,255,255,.2);
+            background: transparent; color: #fff; cursor: pointer; font-size: 14px;
+            display: flex; align-items: center; justify-content: center; transition: background .2s;
+        }
+        .cal-btn:hover { background: rgba(255,255,255,.15); }
+        .cal-wdays {
+            display: grid; grid-template-columns: repeat(7,1fr);
+            text-align: center; font-size: 11px; color: rgba(255,255,255,.38);
+            letter-spacing: 0.5px; margin-bottom: 8px;
+        }
+        .cal-days { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; }
+        .c-day {
+            aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; font-size: 12px; cursor: pointer;
+            color: rgba(255,255,255,.65); transition: all .2s; position: relative;
+        }
+        .c-day.avail { color: #fff; }
+        .c-day.avail:hover { background: rgba(77,182,228,.3); }
+        .c-day.today { border: 1px solid var(--gold); color: var(--gold); }
+        .c-day.sel { background: linear-gradient(135deg,var(--mid-blue),var(--light-blue)); color: #fff; }
+        .c-day.off { opacity: .22; cursor: not-allowed; }
+        .c-day.empty { cursor: default; }
+        .c-day.dot::after {
+            content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+            width: 4px; height: 4px; border-radius: 50%; background: var(--light-blue);
+        }
+
+        .slot-panel { margin-top: 26px; }
+        .slot-hd { font-size: 12px; color: rgba(255,255,255,.5); letter-spacing: 1px; margin-bottom: 12px; }
+        .slot-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+        .time-sl {
+            padding: 9px 6px; border: 1px solid rgba(255,255,255,.15); border-radius: 9px;
+            text-align: center; font-size: 12px; cursor: pointer; color: rgba(255,255,255,.78);
+            transition: all .2s;
+        }
+        .time-sl:hover { background: rgba(77,182,228,.22); border-color: var(--light-blue); }
+        .time-sl.tsel { background: linear-gradient(135deg,var(--mid-blue),var(--light-blue)); border-color: transparent; color: #fff; }
+        .time-sl.tbkd { opacity: .28; cursor: not-allowed; text-decoration: line-through; }
+
+        .sched-box {
+            margin-top: 22px; padding: 18px 20px;
+            background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 14px;
+        }
+        .sched-ttl { font-size: 12px; color: rgba(255,255,255,.42); letter-spacing: 1px; margin-bottom: 13px; }
+        .sched-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 9px; }
+        .sched-row span:first-child { color: rgba(255,255,255,.55); }
+        .sched-row span:last-child { color: var(--light-blue); }
+        .sched-row.off span:last-child { color: rgba(255,255,255,.25); }
+
+        /* form */
+        .appt-form { display: flex; flex-direction: column; gap: 18px; }
+        .form-ttl { font-size: 22px; font-weight: 300; color: #fff; letter-spacing: 3px; }
+        .form-sub { font-size: 13px; color: rgba(255,255,255,.45); margin-top: 4px; }
+        .fgrp { display: flex; flex-direction: column; gap: 7px; }
+        .flbl { font-size: 12px; color: rgba(255,255,255,.55); letter-spacing: 1px; }
+        .finput {
+            background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
+            border-radius: 11px; padding: 13px 16px; color: #fff; font-size: 13px;
+            outline: none; transition: all .3s; font-family: inherit; width: 100%;
+        }
+        .finput::placeholder { color: rgba(255,255,255,.28); }
+        .finput:focus { border-color: var(--light-blue); background: rgba(77,182,228,.07); }
+        select.finput { background-color: rgba(13,33,55,.85); }
+        select.finput option { background: #1a3a5c; }
+        textarea.finput { resize: vertical; min-height: 90px; }
+        .sel-info {
+            background: rgba(77,182,228,.1); border: 1px solid rgba(77,182,228,.25);
+            border-radius: 11px; padding: 13px 16px; font-size: 13px; color: var(--light-blue);
+        }
+        .sel-info small { color: rgba(255,255,255,.48); font-size: 11px; display: block; margin-bottom: 4px; }
+        .steps { display: flex; flex-direction: column; gap: 10px; }
+        .steps-ttl { font-size: 11px; color: rgba(255,255,255,.3); letter-spacing: 1px; }
+        .step { display: flex; align-items: center; gap: 12px; }
+        .step-n {
+            width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+            background: rgba(77,182,228,.18); border: 1px solid rgba(77,182,228,.38);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; color: var(--light-blue);
+        }
+        .step-t { font-size: 12px; color: rgba(255,255,255,.52); }
+        .btn-submit {
+            background: linear-gradient(135deg,var(--mid-blue),var(--light-blue));
+            color: #fff; border: none; padding: 15px; border-radius: 13px;
+            font-size: 14px; letter-spacing: 2px; cursor: pointer; transition: all .3s;
+            font-family: inherit; box-shadow: 0 8px 24px rgba(77,182,228,.3);
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(77,182,228,.45); }
+
+        /* ─── KNOWLEDGE ─── */
+        .know-section { background: #fff; }
+        .arts-grid {
+            display: grid; grid-template-columns: repeat(3,1fr); gap: 28px;
+            max-width: 1160px; margin: 0 auto;
+        }
+        .art-card {
+            border-radius: 18px; overflow: hidden;
+            border: 1px solid rgba(77,182,228,.1); transition: all .4s; background: #fff;
+        }
+        .art-card:hover { transform: translateY(-7px); box-shadow: 0 20px 48px rgba(26,58,92,.11); }
+        .art-cover {
+            height: 188px; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center; font-size: 46px;
+        }
+        .ac1 { background: linear-gradient(135deg,#1a3a5c,#2d6a9f); }
+        .ac2 { background: linear-gradient(135deg,#0d4a6e,#1a7a9a); }
+        .ac3 { background: linear-gradient(135deg,#1e3a5c,#3a6fa8); }
+        .ac4 { background: linear-gradient(135deg,#162e45,#2a5f8f); }
+        .ac5 { background: linear-gradient(135deg,#0a3352,#1e6090); }
+        .ac6 { background: linear-gradient(135deg,#1a3a5c,#4a8ab5); }
+        .art-cat {
+            position: absolute; top: 13px; left: 13px;
+            background: rgba(255,255,255,.14); backdrop-filter: blur(8px);
+            color: #fff; padding: 3px 11px; border-radius: 10px; font-size: 10px; letter-spacing: 1px;
+        }
+        .art-body { padding: 22px; }
+        .art-meta { display: flex; gap: 14px; font-size: 11px; margin-bottom: 10px; }
+        .art-date { color: var(--gray); }
+        .art-rt { color: var(--light-blue); }
+        .art-title { font-size: 16px; font-weight: 600; color: var(--dark-blue); line-height: 1.5; margin-bottom: 10px; }
+        .art-exc { font-size: 12px; color: var(--gray); line-height: 1.85; margin-bottom: 18px; }
+        .art-link {
+            display: inline-flex; align-items: center; gap: 5px;
+            color: var(--mid-blue); text-decoration: none; font-size: 12px;
+            letter-spacing: 1px; transition: gap .2s, color .2s;
+        }
+        .art-link:hover { gap: 9px; color: var(--light-blue); }
+        .more-wrap { text-align: center; margin-top: 48px; }
+
+        /* ─── TESTIMONIALS ─── */
+        .testi-section { background: var(--bg); }
+        .testi-grid {
+            display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
+            max-width: 1160px; margin: 0 auto;
+        }
+        .testi-card {
+            background: #fff; border-radius: 18px; padding: 30px 26px;
+            border: 1px solid rgba(77,182,228,.08);
+        }
+        .q-mark { font-size: 54px; color: var(--pale-blue); line-height: .4; font-family: Georgia,serif; margin-bottom: 18px; }
+        .testi-txt { font-size: 13px; color: var(--gray); line-height: 1.95; font-style: italic; margin-bottom: 22px; }
+        .testi-auth { display: flex; align-items: center; gap: 11px; }
+        .auth-av {
+            width: 40px; height: 40px; border-radius: 50; flex-shrink: 0;
+            background: linear-gradient(135deg,var(--mid-blue),var(--light-blue));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 15px; font-weight: 700;
+        }
+        .auth-nm { font-size: 13px; font-weight: 600; color: var(--dark-blue); }
+        .auth-nt { font-size: 11px; color: var(--gray); }
+        .stars { color: var(--gold); font-size: 12px; letter-spacing: 2px; margin-left: auto; }
+
+        /* ─── FOOTER ─── */
+        footer { background: var(--navy); color: #fff; padding: 76px 8% 36px; }
+        .ft-top {
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 54px;
+            margin-bottom: 54px; padding-bottom: 54px; border-bottom: 1px solid rgba(255,255,255,.07);
+        }
+        .ft-brand h3 { font-size: 20px; font-weight: 300; letter-spacing: 3px; margin-bottom: 13px; }
+        .ft-brand p { font-size: 12px; color: rgba(255,255,255,.42); line-height: 1.85; margin-bottom: 22px; }
+        .socials { display: flex; gap: 10px; }
+        .soc {
+            width: 34px; height: 34px; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.18); display: flex; align-items: center; justify-content: center;
+            text-decoration: none; color: rgba(255,255,255,.55); font-size: 12px; transition: all .3s;
+        }
+        .soc:hover { background: var(--mid-blue); border-color: var(--mid-blue); color: #fff; transform: translateY(-2px); }
+        .ft-col h4 { font-size: 13px; letter-spacing: 2px; margin-bottom: 18px; color: rgba(255,255,255,.88); }
+        .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+        .ft-col ul li a { color: rgba(255,255,255,.4); text-decoration: none; font-size: 12px; transition: color .2s; }
+        .ft-col ul li a:hover { color: var(--light-blue); }
+        .ft-ci { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 13px; }
+        .ft-ci-ico { color: var(--light-blue); font-size: 13px; margin-top: 2px; }
+        .ft-ci-txt { font-size: 12px; color: rgba(255,255,255,.4); line-height: 1.6; }
+        .ft-bot { display: flex; justify-content: space-between; align-items: center; }
+        .ft-copy { font-size: 11px; color: rgba(255,255,255,.25); }
+        .ft-icp  { font-size: 11px; color: rgba(255,255,255,.18); }
+
+        /* ─── NOTIF ─── */
+        .notif {
+            position: fixed; bottom: 28px; right: 28px;
+            background: #fff; border-radius: 15px; padding: 18px 22px;
+            box-shadow: 0 18px 56px rgba(26,58,92,.2);
+            display: flex; align-items: center; gap: 14px;
+            z-index: 9999; transform: translateX(160%);
+            transition: transform .5s cubic-bezier(.34,1.56,.64,1);
+            max-width: 300px; border-left: 4px solid var(--light-blue);
+        }
+        .notif.show { transform: translateX(0); }
+        .notif-ico {
+            width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+            background: linear-gradient(135deg,var(--mid-blue),var(--light-blue));
+            display: flex; align-items: center; justify-content: center; font-size: 17px;
+        }
+        .notif-h { font-size: 13px; font-weight: 600; color: var(--dark-blue); margin-bottom: 3px; }
+        .notif-p { font-size: 11px; color: var(--gray); }
+
+        /* ─── RESPONSIVE ─── */
+        @media(max-width:960px){
+            .about-wrap,.appt-wrap{ grid-template-columns:1fr; gap:40px; }
+            .svc-grid,.arts-grid,.testi-grid{ grid-template-columns:1fr 1fr; }
+            .ft-top{ grid-template-columns:1fr 1fr; gap:36px; }
+        }
+        @media(max-width:640px){
+            .svc-grid,.arts-grid,.testi-grid{ grid-template-columns:1fr; }
+            .nav-links{ display:none; }
+            .ft-top{ grid-template-columns:1fr; }
+            .hero-stats{ display:none; }
+            .cred-grid{ grid-template-columns:1fr; }
+        }
+
+        /* ─── HERO ANIMATIONS ─── */
+        @keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+        .hero-badge  { animation: up .6s ease .2s both; }
+        .hero-en     { animation: up .6s ease .35s both; }
+        .hero-title  { animation: up .6s ease .45s both; }
+        .hero-rule   { animation: up .6s ease .55s both; }
+        .hero-desc   { animation: up .6s ease .65s both; }
+        .hero-btns   { animation: up .6s ease .75s both; }
+        .hero-stats  { animation: up .6s ease .95s both; }
+    </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════ NAV ════ -->
+<nav id="topnav">
+    <div class="nav-brand">
+        <div class="nav-icon">🧠</div>
+        <span class="nav-name">心启 · 心理咨询</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#about">关于我</a></li>
+        <li><a href="#services">服务项目</a></li>
+        <li><a href="#appointment">预约咨询</a></li>
+        <li><a href="#knowledge">知识专栏</a></li>
+        <li><a href="#appointment" class="nav-cta">立即预约</a></li>
+    </ul>
+</nav>
+
+<!-- ════════════════════════════════ HERO ════ -->
+<section class="hero" id="home">
+    <div class="hero-circle hc1"></div>
+    <div class="hero-circle hc2"></div>
+    <div class="hero-circle hc3"></div>
+    <div class="hero-glow"></div>
+
+    <div class="hero-content">
+        <div class="hero-badge">专业心理健康服务</div>
+        <p class="hero-en">PROFESSIONAL PSYCHOLOGICAL COUNSELING</p>
+        <h1 class="hero-title">探索内心<br><span>重建平衡</span></h1>
+        <div class="hero-rule"></div>
+        <p class="hero-desc">
+            我相信每个人内心深处都蕴藏着治愈的力量。<br>
+            在安全、温暖的空间里，我们一起探索与理解，<br>
+            找到属于你自己的答案与成长之路。
+        </p>
+        <div class="hero-btns">
+            <a href="#appointment" class="btn-p">预约咨询</a>
+            <a href="#about" class="btn-o">了解更多</a>
+        </div>
+    </div>
+
+    <div class="hero-stats">
+        <div class="stat-item">
+            <div class="stat-n">8<span>+</span></div>
+            <div class="stat-l">从业年限</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+            <div class="stat-n">500<span>+</span></div>
+            <div class="stat-l">服务来访者</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+            <div class="stat-n">98<span>%</span></div>
+            <div class="stat-l">来访者满意度</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+            <div class="stat-n">3000<span>+</span></div>
+            <div class="stat-l">累计咨询小时</div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════ ABOUT ════ -->
+<section class="section about-section" id="about">
+    <div class="sec-hd fade-in">
+        <div class="sec-tag">关于咨询师</div>
+        <h2 class="sec-title">用<strong>专业</strong>与<strong>温度</strong>陪伴你</h2>
+        <div class="sec-rule"></div>
+        <p class="sec-sub">真诚、专业、保密，是我对每位来访者的承诺</p>
+    </div>
+    <div class="about-wrap">
+        <div class="about-img-wrap fade-in">
+            <div class="about-deco"></div>
+            <div class="about-img">
+                <span class="about-avatar">👩‍⚕️</span>
+            </div>
+            <div class="about-badge">
+                <div class="badge-n">8</div>
+                <div class="badge-l">年临床经验</div>
+            </div>
+        </div>
+        <div class="about-info fade-in">
+            <h2><strong>李思雨</strong> 咨询师</h2>
+            <p class="about-pos">国家二级心理咨询师 · 认知行为治疗取向</p>
+            <div class="about-rule"></div>
+            <p class="about-bio">
+                你好，我是李思雨。我在心理咨询领域深耕八年，于北京大学心理与认知科学学院完成系统专业培训，并长期接受资深督导。<br><br>
+                我以认知行为治疗（CBT）为核心，同时融合正念、接纳承诺疗法（ACT）与人本主义理念。咨询关系本身就是疗愈的载体——在这里，你可以被完整地看见与接纳，不需要表演，不需要坚强。
+            </p>
+            <div class="cred-grid">
+                <div class="cred"><span class="cred-ico">🎓</span><div class="cred-txt"><strong>北京大学</strong>应用心理学硕士</div></div>
+                <div class="cred"><span class="cred-ico">📜</span><div class="cred-txt"><strong>国家认证</strong>二级心理咨询师</div></div>
+                <div class="cred"><span class="cred-ico">🏥</span><div class="cred-txt"><strong>三甲医院</strong>心理科临床实习</div></div>
+                <div class="cred"><span class="cred-ico">🌱</span><div class="cred-txt"><strong>持续成长</strong>每周定期接受督导</div></div>
+            </div>
+            <div class="tags">
+                <span class="tag">焦虑与压力</span>
+                <span class="tag">抑郁情绪</span>
+                <span class="tag">亲密关系</span>
+                <span class="tag">原生家庭</span>
+                <span class="tag">自我成长</span>
+                <span class="tag">职场困境</span>
+                <span class="tag">创伤疗愈</span>
+                <span class="tag">人际关系</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════ SERVICES ════ -->
+<section class="section services-section" id="services">
+    <div class="sec-hd fade-in">
+        <div class="sec-tag">服务项目</div>
+        <h2 class="sec-title"><strong>专业</strong>咨询服务</h2>
+        <div class="sec-rule"></div>
+        <p class="sec-sub">根据您的需求，提供个性化的心理健康支持方案</p>
+    </div>
+    <div class="svc-grid">
+        <div class="svc-card fade-in"><div class="svc-ico">🧭</div><h3 class="svc-title">个人成长咨询</h3><p class="svc-desc">深入探索自我认知，突破内在局限，建立更健康的思维模式与行为习惯，帮助你成为更好的自己。</p></div>
+        <div class="svc-card fade-in"><div class="svc-ico">💑</div><h3 class="svc-title">亲密关系咨询</h3><p class="svc-desc">聚焦伴侣沟通模式与依恋关系，协助建立安全、平等、有深度的情感连接，提升亲密关系质量。</p></div>
+        <div class="svc-card fade-in"><div class="svc-ico">🌊</div><h3 class="svc-title">情绪困扰疏导</h3><p class="svc-desc">针对焦虑、抑郁、压力等情绪问题，运用CBT和正念技术，帮助你有效调节情绪，恢复内心平静。</p></div>
+        <div class="svc-card fade-in"><div class="svc-ico">🏡</div><h3 class="svc-title">原生家庭议题</h3><p class="svc-desc">探索原生家庭对当下生活的影响，处理未完成的情感议题，从家庭模式中解脱，重写自己的生命故事。</p></div>
+        <div class="svc-card fade-in"><div class="svc-ico">🌿</div><h3 class="svc-title">创伤与哀伤疗愈</h3><p class="svc-desc">在安全的关系中，温和地靠近创伤经历，整合破碎的记忆与情感，重新建立对世界和自我的信任。</p></div>
+        <div class="svc-card fade-in"><div class="svc-ico">💼</div><h3 class="svc-title">职场心理支持</h3><p class="svc-desc">应对职场倦怠、人际冲突与职业转型带来的迷茫和焦虑，找到工作与生活真正的平衡点。</p></div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════ APPOINTMENT ════ -->
+<section class="section appt-section" id="appointment">
+    <div class="sec-hd fade-in">
+        <div class="sec-tag">预约咨询</div>
+        <h2 class="sec-title"><strong>选择</strong>适合你的时间</h2>
+        <div class="sec-rule"></div>
+        <p class="sec-sub">每次咨询时长约 50 分钟，请提前预约确认时段</p>
+    </div>
+    <div class="appt-wrap">
+        <!-- Calendar -->
+        <div class="fade-in">
+            <div class="cal-box">
+                <div class="cal-head">
+                    <span class="cal-month" id="calMonthLabel">2025年 6月</span>
+                    <div class="cal-navs">
+                        <button class="cal-btn" onclick="changeMonth(-1)">‹</button>
+                        <button class="cal-btn" onclick="changeMonth(1)">›</button>
+                    </div>
+                </div>
+                <div class="cal-wdays">
+                    <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+                </div>
+                <div class="cal-days" id="calDays"></div>
+            </div>
+            <div id="slotPanel"></div>
+            <div class="sched-box">
+                <p class="sched-ttl">📅 常规开放时段</p>
+                <div class="sched-row"><span>周二 · 周四</span><span>14:00 — 21:00</span></div>
+                <div class="sched-row"><span>周六 · 周日</span><span>09:00 — 17:00</span></div>
+                <div class="sched-row off"><span>周一 · 周三 · 周五</span><span>暂不开放</span></div>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="appt-form fade-in">
+            <div>
+                <div class="form-ttl">填写预约信息</div>
+                <div class="form-sub">您的所有信息将严格保密，请放心填写</div>
+            </div>
+            <div class="sel-info" id="selInfo">
+                <small>已选时间</small>请先在左侧日历中选择日期和时间段
+            </div>
+            <div class="fgrp">
+                <label class="flbl">您的称呼</label>
+                <input type="text" class="finput" placeholder="请输入您希望被称呼的名字">
+            </div>
+            <div class="fgrp">
+                <label class="flbl">联系方式</label>
+                <input type="text" class="finput" placeholder="手机号或微信号">
+            </div>
+            <div class="fgrp">
+                <label class="flbl">咨询类型</label>
+                <select class="finput">
+                    <option value="">请选择咨询方向</option>
+                    <option>个人成长与自我探索</option>
+                    <option>情绪与压力管理</option>
+                    <option>亲密关系与婚恋</option>
+                    <option>原生家庭议题</option>
+                    <option>创伤与哀伤疗愈</option>
+                    <option>职场心理支持</option>
+                    <option>其他（备注中说明）</option>
+                </select>
+            </div>
+            <div class="fgrp">
+                <label class="flbl">简单描述您的困扰（选填）</label>
+                <textarea class="finput" placeholder="用几句话描述您希望在咨询中探讨的内容，帮助咨询师更好地准备……"></textarea>
+            </div>
+            <div class="steps">
+                <p class="steps-ttl">预约流程</p>
+                <div class="step"><div class="step-n">1</div><div class="step-t">提交预约申请 → 24小时内回复确认</div></div>
+                <div class="step"><div class="step-n">2</div><div class="step-t">完成首次会谈评估（免费 15 分钟）</div></div>
+                <div class="step"><div class="step-n">3</div><div class="step-t">确认方案与费用后，正式开始咨询</div></div>
+            </div>
+            <button class="btn-submit" onclick="submitAppt()">提交预约申请 →</button>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════ KNOWLEDGE ════ -->
+<section class="section know-section" id="knowledge">
+    <div class="sec-hd fade-in">
+        <div class="sec-tag">知识专栏</div>
+        <h2 class="sec-title">心理<strong>洞见</strong>与<strong>成长</strong></h2>
+        <div class="sec-rule"></div>
+        <p class="sec-sub">分享心理学知识，陪伴你在生活中更好地了解自己</p>
+    </div>
+    <div class="arts-grid">
+        <div class="art-card fade-in">
+            <div class="art-cover ac1"><span class="art-cat">情绪管理</span>🌊</div>
+            <div class="art-body">
+                <div class="art-meta"><span class="art-date">2025.05.28</span><span class="art-rt">8 min read</span></div>
+                <h4 class="art-title">焦虑不是你的敌人：如何与它和平共处</h4>
+                <p class="art-exc">焦虑是一种内在的警报系统，它的存在有其意义。学会倾听焦虑背后的信号，而不是一味地压制它……</p>
+                <a href="#" class="art-link">阅读全文 →</a>
+            </div>
+        </div>
+        <div class="art-card fade-in">
+            <div class="art-cover ac2"><span class="art-cat">亲密关系</span>💞</div>
+            <div class="art-body">
+                <div class="art-meta"><span class="art-date">2025.05.20</span><span class="art-rt">10 min read</span></div>
+                <h4 class="art-title">依恋类型与你的爱情模式：你是哪一种？</h4>
+                <p class="art-exc">童年的依恋经历深刻影响着我们在亲密关系中的行为。了解自己的依恋风格，是改变关系模式的第一步……</p>
+                <a href="#" class="art-link">阅读全文 →</a>
+            </div>
+        </div>
+        <div class="art-card fade-in">
+            <div class="art-cover ac3"><span class="art-cat">自我成长</span>🌱</div>
+            <div class="art-body">
+                <div class="art-meta"><span class="art-date">2025.05.12</span><span class="art-rt">7 min read</span></div>
+                <h4 class="art-title">内在批评者：那个一直否定你的声音</h4>
+                <p class="art-exc">很多人心中住着一个苛刻的批评者，它不断评判与挑剔。学会识别并改变这个内在声音，是自我接纳的重要一步……</p>
+                <a href="#" class="art-link">阅读全文 →</a>
+            </div>
+        </div>
+        <div class="art-card fade-in">
+            <div class="art-cover ac4"><span class="art-cat">家庭议题</span>🏡</div>
+            <div class="art-body">
+                <div class="art-meta"><span class="art-date">2025.05.05</span><span class="art-rt">12 min read</span></div>
+                <h4 class="art-title">原生家庭伤了你，但你不必永远困在其中</h4>
+                <p class="art-exc">理解原生家庭的影响不是为了指责父母，而是为了看清那些无意识的模式，从而做出真正属于自己的选择……</p>
+                <a href="#" class="art-link">阅读全文 →</a>
+            </div>
+        </div>
+        <div class="art-card fade-in">
+            <div class="art-cover ac5"><span class="art-cat">正念冥想</span>🧘</div>
+            <div class="art-body">
+                <div class="art-meta"><span class="art-date">2025.04.28</span><span class="art-rt">6 min read</span></div>
+                <h4 class="art-title">5 分钟正念练习：让心回到当下的锚点</h4>
+                <p class="art-exc">正念不是让你清空大脑，而是帮助你观察自己的思维而不被淹没。这里有一套简单实用的日常练习……</p>
+                <a href="#" class="art-link">阅读全文 →</a>
+            </div>
+        </div>
+        <div class="art-card fade-in">
+            <div class="art-cover ac6"><span class="art-cat">职场心理</span>🌟</div>
+            <div class="art-body">
+                <div class="art-meta"><span class="art-date">2025.04.18</span><span class="art-rt">9 min read</span></div>
+                <h4 class="art-title">职业倦怠不是懒惰，而是在向你发出求救信号</h4>
+                <p class="art-exc">长期的耗竭感、冷漠与效能感下降，是职业倦怠的典型特征。如何识别并走出这片情绪的沼泽……</p>
+                <a href="#" class="art-link">阅读全文 →</a>
+            </div>
+        </div>
+    </div>
+    <div class="more-wrap"><a href="#" class="btn-p" style="display:inline-block">查看全部文章</a></div>
+</section>
+
+<!-- ════════════════════════════════ TESTIMONIALS ════ -->
+<section class="section testi-section">
+    <div class="sec-hd fade-in">
+        <div class="sec-tag">来访者反馈</div>
+        <h2 class="sec-title"><strong>真实</strong>的改变故事</h2>
+        <div class="sec-rule"></div>
+        <p class="sec-sub">均已征得同意并匿名处理</p>
+    </div>
+    <div class="testi-grid">
+        <div class="testi-card fade-in">
+            <div class="q-mark">"</div>
+            <p class="testi-txt">第一次咨询时我非常紧张，但李老师的倾听方式让我感到被真正理解。六个月下来，我终于能够和自己的焦虑共处，而不是每天被它追着跑。</p>
+            <div class="testi-auth">
+                <div class="auth-av">小</div>
+                <div><div class="auth-nm">小雪同学</div><div class="auth-nt">咨询方向：焦虑管理</div></div>
+                <div class="stars">★★★★★</div>
+            </div>
+        </div>
+        <div class="testi-card fade-in">
+            <div class="q-mark">"</div>
+            <p class="testi-txt">我在婚姻中挣扎了很久，觉得无路可走。通过咨询，我们学会了一种全新的沟通方式，现在的关系比以前好多了，非常感谢李老师的陪伴。</p>
+            <div class="testi-auth">
+                <div class="auth-av">阿</div>
+                <div><div class="auth-nm">阿文先生</div><div class="auth-nt">咨询方向：亲密关系</div></div>
+                <div class="stars">★★★★★</div>
+            </div>
+        </div>
+        <div class="testi-card fade-in">
+            <div class="q-mark">"</div>
+            <p class="testi-txt">原来以为心理咨询只是"聊天"，后来才明白那是多么深刻的探索。我逐渐理解了原生家庭对我的影响，开始能够为自己做真正的选择了。</p>
+            <div class="testi-auth">
+                <div class="auth-av">晴</div>
+                <div><div class="auth-nm">晴晴</div><div class="auth-nt">咨询方向：原生家庭</div></div>
+                <div class="stars">★★★★★</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════ FOOTER ════ -->
+<footer>
+    <div class="ft-top">
+        <div class="ft-brand">
+            <h3>心启 · 心理咨询</h3>
+            <p>在安全、温暖、保密的空间里，我们一同探索你的内心世界，支持你实现真正属于自己的蜕变与成长。</p>
+            <div class="socials">
+                <a href="#" class="soc">微</a>
+                <a href="#" class="soc">博</a>
+                <a href="#" class="soc">知</a>
+                <a href="#" class="soc">小</a>
+            </div>
+        </div>
+        <div class="ft-col">
+            <h4>服务项目</h4>
+            <ul>
+                <li><a href="#">个人成长咨询</a></li>
+                <li><a href="#">亲密关系咨询</a></li>
+                <li><a href="#">情绪困扰疏导</a></li>
+                <li><a href="#">原生家庭议题</a></li>
+                <li><a href="#">创伤疗愈</a></li>
+            </ul>
+        </div>
+        <div class="ft-col">
+            <h4>快速导航</h4>
+            <ul>
+                <li><a href="#about">关于咨询师</a></li>
+                <li><a href="#appointment">预约咨询</a></li>
+                <li><a href="#knowledge">知识专栏</a></li>
+                <li><a href="#">咨询费用</a></li>
+                <li><a href="#">常见问题</a></li>
+            </ul>
+        </div>
+        <div class="ft-col">
+            <h4>联系方式</h4>
+            <div class="ft-ci"><span class="ft-ci-ico">📍</span><span class="ft-ci-txt">北京市朝阳区某大厦<br>18楼 · 心启咨询室</span></div>
+            <div class="ft-ci"><span class="ft-ci-ico">📱</span><span class="ft-ci-txt">138 xxxx xxxx<br>工作日 10:00–20:00</span></div>
+            <div class="ft-ci"><span class="ft-ci-ico">💬</span><span class="ft-ci-txt">微信同号<br>xinqi_consulting</span></div>
+        </div>
+    </div>
+    <div class="ft-bot">
+        <p class="ft-copy">© 2025 心启心理咨询工作室 · 李思雨咨询师 · All Rights Reserved</p>
+        <p class="ft-icp">京ICP备 xxxxxxxx号</p>
+    </div>
+</footer>
+
+<!-- 通知弹窗 -->
+<div class="notif" id="notif">
+    <div class="notif-ico">✓</div>
+    <div><div class="notif-h">预约申请已提交</div><div class="notif-p">我们将在24小时内与您联系确认</div></div>
+</div>
+
+<script>
+/* ─── Calendar ─── */
+let curYear = 2025, curMonth = 5; // June 2025 (0-indexed)
+let selDate = null, selTime = null;
+
+const slots = {
+    2: ['14:00','15:00','16:00','17:00','18:00','19:00','20:00'], // Tue
+    4: ['14:00','15:00','16:00','17:00','18:00','19:00','20:00'], // Thu
+    6: ['09:00','10:00','11:00','14:00','15:00','16:00'],         // Sat
+    0: ['09:00','10:00','11:00','14:00','15:00','16:00'],         // Sun
+};
+const booked = {
+    '2025-6-3': ['14:00','15:00'],
+    '2025-6-5': ['09:00','14:00'],
+    '2025-6-10':['16:00','17:00'],
+    '2025-6-12':['09:00','10:00'],
+    '2025-6-17':['14:00'],
+    '2025-6-19':['15:00','16:00'],
+    '2025-6-21':['09:00'],
+};
+const monthNames = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+const dayNames   = ['周日','周一','周二','周三','周四','周五','周六'];
+
+function renderCal() {
+    document.getElementById('calMonthLabel').textContent = `${curYear}年 ${monthNames[curMonth]}`;
+    const grid = document.getElementById('calDays');
+    grid.innerHTML = '';
+    const today = new Date();
+    const first = new Date(curYear, curMonth, 1).getDay();
+    const days  = new Date(curYear, curMonth + 1, 0).getDate();
+
+    for (let i = 0; i < first; i++) {
+        const e = document.createElement('div'); e.className = 'c-day empty'; grid.appendChild(e);
+    }
+    for (let d = 1; d <= days; d++) {
+        const dt  = new Date(curYear, curMonth, d);
+        const dow = dt.getDay();
+        const el  = document.createElement('div');
+        el.textContent = d;
+        const isToday = dt.toDateString() === today.toDateString();
+        const isPast  = dt < today && !isToday;
+        const hasSl   = !!slots[dow];
+        const isSel   = selDate && dt.toDateString() === selDate.toDateString();
+
+        el.className = 'c-day';
+        if (isPast || !hasSl) { el.classList.add('off'); }
+        else {
+            el.classList.add('avail');
+            if (hasSl) el.classList.add('dot');
+            el.addEventListener('click', () => pickDate(dt));
+        }
+        if (isToday) el.classList.add('today');
+        if (isSel)   el.classList.add('sel');
+        grid.appendChild(el);
+    }
+}
+
+function pickDate(dt) {
+    selDate = dt; selTime = null;
+    renderCal();
+    const m = dt.getMonth() + 1, d = dt.getDate();
+    const key = `${dt.getFullYear()}-${m}-${d}`;
+    const avail = slots[dt.getDay()] || [];
+    const bk    = booked[key] || [];
+
+    document.getElementById('slotPanel').innerHTML = `
+        <div class="slot-panel">
+            <div class="slot-hd">${m}月${d}日（${dayNames[dt.getDay()]}）可用时段</div>
+            <div class="slot-grid">
+                ${avail.map(t => {
+                    const isB = bk.includes(t);
+                    return `<div class="time-sl ${isB ? 'tbkd' : ''}" ${isB ? '' : `onclick="pickTime('${t}')"`}>${t}</div>`;
+                }).join('')}
+            </div>
+        </div>`;
+    document.getElementById('selInfo').innerHTML =
+        `<small>已选时间</small>📅 ${m}月${d}日（${dayNames[dt.getDay()]}）请选择时间段`;
+}
+
+function pickTime(t) {
+    selTime = t;
+    // Re-render slots with selection
+    const m  = selDate.getMonth() + 1, d = selDate.getDate();
+    const key = `${selDate.getFullYear()}-${m}-${d}`;
+    const avail = slots[selDate.getDay()] || [];
+    const bk    = booked[key] || [];
+    document.getElementById('slotPanel').innerHTML = `
+        <div class="slot-panel">
+            <div class="slot-hd">${m}月${d}日（${dayNames[selDate.getDay()]}）可用时段</div>
+            <div class="slot-grid">
+                ${avail.map(s => {
+                    const isB = bk.includes(s), isS = s === t;
+                    return `<div class="time-sl ${isB ? 'tbkd' : ''} ${isS ? 'tsel' : ''}" ${isB ? '' : `onclick="pickTime('${s}')"`}>${s}</div>`;
+                }).join('')}
+            </div>
+        </div>`;
+    const endH = String(parseInt(t) + 1).padStart(2,'0') + ':' + t.slice(3);
+    document.getElementById('selInfo').innerHTML =
+        `<small>已选时间</small>📅 ${selDate.getFullYear()}年${m}月${d}日（${dayNames[selDate.getDay()]}）&nbsp; ${t} — ${endH}`;
+}
+
+function changeMonth(delta) {
+    curMonth += delta;
+    if (curMonth > 11) { curMonth = 0; curYear++; }
+    if (curMonth < 0)  { curMonth = 11; curYear--; }
+    selDate = null; selTime = null;
+    document.getElementById('slotPanel').innerHTML = '';
+    document.getElementById('selInfo').innerHTML = '<small>已选时间</small>请先在左侧日历中选择日期和时间段';
+    renderCal();
+}
+
+function submitAppt() {
+    if (!selDate || !selTime) { alert('请先选择咨询日期和时间段'); return; }
+    const n = document.getElementById('notif');
+    n.classList.add('show');
+    setTimeout(() => n.classList.remove('show'), 4200);
+}
+
+renderCal();
+
+/* ─── Scroll Animations ─── */
+const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+        if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 90);
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+/* ─── Nav scroll ─── */
+window.addEventListener('scroll', () => {
+    document.getElementById('topnav').style.background =
+        window.scrollY > 60 ? 'rgba(13,33,55,.99)' : 'rgba(13,33,55,.95)';
+});
+</script>
+</body>
+</html>
